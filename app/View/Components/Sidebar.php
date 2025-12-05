@@ -9,11 +9,44 @@ use Illuminate\View\Component;
 class Sidebar extends Component
 {
     /**
+     * Menu items configuration
+     *
+     * @var array
+     */
+    public array $menuItems = [];
+
+    /**
      * Create a new component instance.
      */
     public function __construct()
     {
-        //
+        $this->menuItems = $this->getMenuItems();
+    }
+
+    /**
+     * Get menu items configuration from config file
+     *
+     * @return array
+     */
+    protected function getMenuItems(): array
+    {
+        return config('menu', []);
+    }
+
+    /**
+     * Check if any submenu item is active
+     *
+     * @param array $submenu
+     * @return bool
+     */
+    public function isSubmenuActive(array $submenu): bool
+    {
+        foreach ($submenu as $item) {
+            if (request()->routeIs($item['activeRoute'])) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
