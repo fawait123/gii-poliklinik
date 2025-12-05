@@ -1,0 +1,6 @@
+{
+    "Login": true,
+    "Auth": true,
+    "Dashboard": true,
+    "User": true
+}
